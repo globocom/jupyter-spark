@@ -38,8 +38,13 @@ class Spark(LoggingConfigurable):
         help='The URL path under which the Spark API will be proxied',
     )
 
+    base_url = Unicode(
+        '',
+        help='The URL path under which the proxy should point',
+    )
+
     def __init__(self, *args, **kwargs):
-        self.base_url = kwargs.pop('base_url')
+        self.base_url = self.base_url or kwargs.pop('base_url')
         super(Spark, self).__init__(*args, **kwargs)
         self.proxy_url = url_path_join(self.base_url, self.proxy_root)
 
